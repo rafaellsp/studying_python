@@ -2,7 +2,7 @@ import serial
 import pynmea2
 import folium
 
-def read_rtk_data(port, baudrate):
+def read_rtk_data(port, baudrate, num_points=10):
     points = []
     try:
         ser = serial.Serial(port, baudrate, timeout=1)
@@ -22,8 +22,8 @@ def read_rtk_data(port, baudrate):
                         points.append(point)
                         print(f"Dados captados: {point}")
 
-                        # Para evitar um loop infinito no exemplo, vamos parar após 10 pontos
-                        if len(points) >= 10:
+                        # Para evitar um loop infinito no exemplo, vamos parar após um número definido de pontos
+                        if len(points) >= num_points:
                             break
                 except pynmea2.ParseError as e:
                     print(f"Erro ao parsear a linha NMEA: {e}")
@@ -48,16 +48,21 @@ def create_map(points, output_file='map.html'):
 
     m = folium.Map(location=[center_lat, center_lon], zoom_start=15)
 
+    # Adiciona os pontos como marcadores
     for point in points:
         folium.Marker(
             location=[point['latitude'], point['longitude']],
             popup=f"Altitude: {point['altitude']}m"
         ).add_to(m)
 
+    # Cria uma linha conectando todos os pontos
+    coordinates = [(point['latitude'], point['longitude']) for point in points]
+    folium.PolyLine(locations=coordinates, color='blue').add_to(m)
+
     m.save(output_file)
     print(f"Mapa salvo como {output_file}")
 
 if __name__ == "__main__":
     # Substitua 'COM3' pela porta serial correta e 9600 pelo baudrate correto do seu dispositivo RTK
-    points = read_rtk_data(port='COM3', baudrate=9600) 
+    points = read_rtk_data(port='COM3', baudrate=9600, num_points=10)
     create_map(points)
