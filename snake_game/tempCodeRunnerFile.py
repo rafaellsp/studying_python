@@ -1,0 +1,1 @@
+argura, altura = 1200, 800
