@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro e Votação</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastre-se e Vote</h1>
+        <form action="/cadastro" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+            
+            <label>Escolha sua opção:</label>
+            <input type="radio" name="opcao" value="Opção A" required> Opção A<br>
+            <input type="radio" name="opcao" value="Opção B" required> Opção B<br>
+            <input type="radio" name="opcao" value="Opção C" required> Opção C<br>
+            
+            <button type="submit">Votar</button>
+        </form>
+    </div>
+</body>
+</html>

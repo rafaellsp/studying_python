@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Add a New Task</h1>
+        </nav>
+    </header>
+
+    <main>
+        <section class="todo-container">
+            <form action="{{ url_for('add_task') }}" method="POST" class="task-form">
+                <input type="text" name="task" placeholder="Enter a task" required>
+                <button type="submit" class="btn">Add Task</button>
+            </form>
+            <a href="{{ url_for('index') }}" class="btn back-btn">Back to List</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Your To-Do App</p>
+    </footer>
+</body>
+</html>

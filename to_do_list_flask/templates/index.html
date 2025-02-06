@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>To-Do List</h1>
+        </nav>
+    </header>
+
+    <main>
+        <section class="todo-container">
+            <h2>Your Tasks</h2>
+            <ul class="todo-list">
+                {% for task in tasks %}
+                <li>
+                    <span>{{ task }}</span>
+                    <a href="{{ url_for('delete_task', task_id=loop.index0) }}" class="delete-btn">Delete</a>
+                </li>
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('add_task') }}" class="btn add-btn">Add New Task</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Your To-Do App</p>
+    </footer>
+</body>
+</html>
